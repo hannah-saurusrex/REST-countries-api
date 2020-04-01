@@ -1,15 +1,17 @@
 // Todos
 // API call ✅
 // theme toggle ✅
-// search
-// filter
-// details modal
+// search ✅
+// filter ✅
+// modal
 
 const countriesEl = document.getElementById('countries');
 const toggleBtn = document.getElementById('toggle');
 const filterBtn = document.getElementById('filter');
 const regionFilters = filterBtn.querySelectorAll('li');
 const searchEl = document.getElementById('search');
+const modal = document.getElementById('modal');
+const closeBtn = document.getElementById('close');
 
 getCountries();
 
@@ -49,6 +51,10 @@ function displayCountries(countries) {
             </div>
         `;
 
+        countryEl.addEventListener('click', () => {
+            modal.style.display = 'flex';
+        });
+
         countriesEl.appendChild(countryEl);
     });
 }
@@ -61,6 +67,11 @@ toggleBtn.addEventListener('click', () => {
 // show & hide the filter options list
 filterBtn.addEventListener('click', () => {
     filterBtn.classList.toggle('open');
+});
+
+// close the modal
+closeBtn.addEventListener('click', () => {
+    modal.style.display = 'none';
 });
 
 // search input function
