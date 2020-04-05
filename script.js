@@ -3,7 +3,7 @@
 // theme toggle ✅
 // search ✅
 // filter ✅
-// modal
+// modal ✅
 
 const countriesEl = document.getElementById('countries');
 const toggleBtn = document.getElementById('toggle');
@@ -31,21 +31,25 @@ function displayCountries(countries) {
     
         countryEl.innerHTML = `
             <div>
-                <img src="${country.flag}" alt="Germany">
+                <img src="${country.flag}" alt="${country.name}">
             </div>
 
             <div class="card-body">
                 <h3 class="country-name">${country.name}</h3>
                 <p>
-                    <strong>Population: </strong>
-                    ${country.population}
+                    <strong>Population:</strong>
+                    ${country.population
+                        .toString()
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ",") 
+                        // format number as thousands, with comma seperator. Thank you Stack Overflow (https://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript)
+                    }
                 </p>
                 <p class="country-region">
-                    <strong>Region: </strong>
+                    <strong>Region:</strong>
                     ${country.region}
                 </p>
                 <p>
-                    <strong>Capital: </strong>
+                    <strong>Capital:</strong>
                     ${country.capital}
                 </p>
             </div>
@@ -74,7 +78,11 @@ function showCountryDetails(country) {
         </p>
         <p>
             <strong>Population: </strong>
-            ${country.population}
+            ${country.population
+                .toString()
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ",") 
+                // format number as thousands, with comma seperator. Thank you Stack Overflow
+            }
         </p>
         <p>
             <strong>Region: </strong>
@@ -94,11 +102,17 @@ function showCountryDetails(country) {
         </p>
         <p>
             <strong>Currencies: </strong>
-            ${country.currencies.map(currency => currency.name)}
+            ${country.currencies
+                .map(currency => currency.name)
+                .join(', ')
+            }
         </p>
         <p>
             <strong>Languages: </strong>
-            ${country.languages.map(language => language.name)}
+            ${country.languages
+                .map(language => language.name)
+                .join(', ')
+            }
         </p>
         
     `;
@@ -135,19 +149,19 @@ searchEl.addEventListener('input', (e) => {
     });
 });
 
-// search countries by region; or, add a filter to the lis inside the .dropdown
+// search countries by region; or, add a filter to the 'li's inside the .dropdown
 regionFilters.forEach(filter => {
     filter.addEventListener('click', () => {
         const value = filter.innerText;
         const countryRegion = document.querySelectorAll('.country-region');
 
-    countryRegion.forEach(region => {
-        if(region.innerText.includes(value) || value === 'All') {
-            region.parentElement.parentElement.style.display = 'block'; 
-            // .country-region -> .card-body -> .card
-        } else {
-            region.parentElement.parentElement.style.display = 'none';
-        }
-    });
+        countryRegion.forEach(region => {
+            if(region.innerText.includes(value) || value === 'All') {
+                region.parentElement.parentElement.style.display = 'block'; 
+                // .country-region -> .card-body -> .card
+            } else {
+                region.parentElement.parentElement.style.display = 'none';
+            }
+        });
     });
 });
