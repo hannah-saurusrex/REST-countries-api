@@ -165,11 +165,11 @@ body.dark .btn-toggle .far {
     overflow: hidden;
     margin: 20px;
     max-width: 100%;
-    width: 300px;
+    width: 325px;
 }
 
 .card img {
-    object-fit: cover;
+    object-fit: scale-down;
     height: 250px;
     width: 100%;
 }
