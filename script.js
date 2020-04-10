@@ -103,7 +103,6 @@ function showCountryDetails(country) {
             <strong>Languages: </strong>
             ${country.languages.map(language => language.name).join(', ')}
         </p>
-        
     `;
 }
 
